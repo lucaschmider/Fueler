@@ -1,10 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/refueling.model.dart';
+import 'package:fueler/pages/dashboard/fuel-type-icon.dart';
+import 'package:fueler/styles.dart';
 
 class RefuelingItem extends StatefulWidget {
   final Refueling item;
+  final bool isLastItem;
 
-  RefuelingItem({@required this.item}) : assert(item != null);
+  RefuelingItem({@required this.item, @required this.isLastItem})
+      : assert(item != null);
 
   @override
   _RefuelingItemState createState() => _RefuelingItemState();
@@ -13,13 +18,52 @@ class RefuelingItem extends StatefulWidget {
 class _RefuelingItemState extends State<RefuelingItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    final row = SafeArea(
+      top: false,
+      bottom: false,
+      minimum: const EdgeInsets.only(
+        left: 16,
+        top: 8,
+        bottom: 8,
+        right: 8,
+      ),
+      child: Row(
         children: [
-          Text(widget.item.amount.toString() + " Liter"),
-          Text(widget.item.amount.toString() + " Euro"),
+          FuelTypeIcon(type: widget.item.fuelType),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.item.amount.toString() + " Liter",
+                    style: Styles.productRowItemName,
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  Text(
+                    widget.item.price.toString() + " Euro",
+                    style: Styles.productRowItemPrice,
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
+    );
+
+    if (widget.isLastItem) return row;
+
+    return Column(
+      children: <Widget>[
+        row,
+        Container(
+          height: 1,
+          color: Styles.productRowDivider,
+        )
+      ],
     );
   }
 }

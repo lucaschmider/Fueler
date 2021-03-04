@@ -6,15 +6,18 @@ class Refueling {
       {@required this.refuelingId,
       @required this.amount,
       @required this.price,
+      @required this.fuelType,
       @required this.timestamp})
       : assert(refuelingId != null),
         assert(amount > 0),
         assert(price > 0),
+        assert(fuelType != null),
         assert(timestamp != null);
 
-  Refueling.capture(this.amount, this.price, this.timestamp)
+  Refueling.capture(this.amount, this.price, this.fuelType, this.timestamp)
       : assert(amount > 0),
         assert(price > 0),
+        assert(fuelType != null),
         assert(timestamp != null),
         refuelingId = uuidService.newUuid();
 
@@ -29,4 +32,8 @@ class Refueling {
 
   /// The day the refueling has occured
   final DateTime timestamp;
+
+  final FuelType fuelType;
 }
+
+enum FuelType { Gazoline5, Gazoline10, Diesel }

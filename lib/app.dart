@@ -12,7 +12,7 @@ class FuelerApp extends StatelessWidget {
 
     return CupertinoApp(
       theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: DashboardPage(),
+      home: FuelerHome(),
     );
   }
 }
@@ -26,10 +26,6 @@ class FuelerHome extends StatelessWidget {
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
               label: "Übersicht",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.add),
-              label: "Nachtanken",
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.gear),
@@ -50,14 +46,10 @@ class FuelerHome extends StatelessWidget {
             case 1:
               returnValue = CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
-                  child: DashboardPage(),
-                );
-              });
-              break;
-            case 2:
-              returnValue = CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: DashboardPage(),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text("Hallo, Welt"),
+                  ),
                 );
               });
               break;
