@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/pages/dashboard/refueling-item.dart';
+import 'package:fueler/services/navigation.service.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -13,6 +14,11 @@ class DashboardPage extends StatelessWidget {
         return CustomScrollView(
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
+              trailing: CupertinoButton(
+                child: Icon(CupertinoIcons.add_circled_solid),
+                padding: EdgeInsets.zero,
+                onPressed: () => navigationService.openRefuelingDialog(context),
+              ),
               largeTitle: Text("Übersicht"),
             ),
             SliverList(
