@@ -41,13 +41,13 @@ class _RefuelingItemState extends State<RefuelingItem> {
                   Text(
                     textService.getRefuelingTitleLine(
                         widget.item.amount, widget.item.price),
-                    style: Styles.productRowItemName,
+                    style: Styles.dashboardRowTitle,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Text(
                     textService.getRefuelingSubtitle(widget.item.timestamp,
                         widget.item.amount, widget.item.price),
-                    style: Styles.productRowItemPrice,
+                    style: Styles.dashboardRowSubtitle,
                   )
                 ],
               ),
@@ -64,7 +64,7 @@ class _RefuelingItemState extends State<RefuelingItem> {
         row,
         Container(
           height: 1,
-          color: Styles.productRowDivider,
+          color: Styles.listItemDivider,
           margin: EdgeInsets.only(left: 8, right: 8),
         ),
       ],

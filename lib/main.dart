@@ -14,7 +14,66 @@ void main() {
       ..registerRefueling(
           Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
       ..registerRefueling(
-          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now())),
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(
+          Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(12, 14, FuelType.Gazoline5, DateTime.now()))
+      ..registerRefueling(Refueling.capture(16, 20, FuelType.Gazoline10, DateTime.now()))
+      ..registerRefueling(Refueling.capture(50, 60, FuelType.Diesel, DateTime.now())),
     child: FuelerApp(),
   ));
 }

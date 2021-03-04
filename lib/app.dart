@@ -11,7 +11,7 @@ class FuelerApp extends StatelessWidget {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.dark),
+      theme: const CupertinoThemeData(brightness: Brightness.light),
       home: FuelerHome(),
     );
   }

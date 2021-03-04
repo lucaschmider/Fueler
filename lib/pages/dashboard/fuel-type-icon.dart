@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/refueling.model.dart';
+import 'package:fueler/styles.dart';
 
 class FuelTypeIcon extends StatelessWidget {
   final FuelType type;
@@ -17,10 +18,14 @@ class FuelTypeIcon extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        child: Text(this._texts[this.type] ?? ""),
-        height: 76,
+        child: Text(
+          this._texts[this.type] ?? "",
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.w300, color: Colors.white),
+        ),
+        height: 40,
         width: 76,
-        color: Colors.amber,
+        color: Styles.fuelColors[this.type],
         alignment: Alignment.center,
       ),
     );
