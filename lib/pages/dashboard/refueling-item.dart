@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/pages/dashboard/fuel-type-icon.dart';
+import 'package:fueler/services/text.service.dart';
 import 'package:fueler/styles.dart';
 
 class RefuelingItem extends StatefulWidget {
@@ -38,12 +39,14 @@ class _RefuelingItemState extends State<RefuelingItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.item.amount.toString() + " Liter",
+                    textService.getRefuelingTitleLine(
+                        widget.item.amount, widget.item.price),
                     style: Styles.productRowItemName,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Text(
-                    widget.item.price.toString() + " Euro",
+                    textService.getRefuelingSubtitle(widget.item.timestamp,
+                        widget.item.amount, widget.item.price),
                     style: Styles.productRowItemPrice,
                   )
                 ],
@@ -62,7 +65,8 @@ class _RefuelingItemState extends State<RefuelingItem> {
         Container(
           height: 1,
           color: Styles.productRowDivider,
-        )
+          margin: EdgeInsets.only(left: 8, right: 8),
+        ),
       ],
     );
   }

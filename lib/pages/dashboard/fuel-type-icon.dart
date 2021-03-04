@@ -15,7 +15,7 @@ class FuelTypeIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(8),
       child: Container(
         child: Text(this._texts[this.type] ?? ""),
         height: 76,
