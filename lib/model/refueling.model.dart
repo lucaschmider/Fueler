@@ -14,12 +14,12 @@ class Refueling {
         assert(fuelType != null),
         assert(timestamp != null);
 
-  Refueling.capture(this.amount, this.price, this.fuelType, this.timestamp)
+  Refueling.capture(this.amount, this.price, this.fuelType)
       : assert(amount > 0),
         assert(price > 0),
         assert(fuelType != null),
-        assert(timestamp != null),
-        refuelingId = uuidService.newUuid();
+        refuelingId = uuidService.newUuid(),
+        timestamp = DateTime.now();
 
   /// The unique id of the refueling
   final String refuelingId;
