@@ -7,6 +7,7 @@ class AppStateModel extends foundation.ChangeNotifier {
   List<Refueling> getAllRefuelings() => _refuelings.sublist(0);
   void registerRefueling(Refueling refueling) {
     _refuelings.add(refueling);
+    _refuelings.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     notifyListeners();
   }
 }
