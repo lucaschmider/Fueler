@@ -13,9 +13,19 @@ class _RefuelMainState extends State<RefuelMain> {
   FuelType _fuelType = FuelType.Gazoline5;
   double _amount = 0;
   double _totalPrice = 0;
+  TextEditingController _amountController;
+  TextEditingController _priceController;
+
+  bool _isDisabled() =>
+      _fuelType == null ||
+      _amount == null ||
+      _amount <= 0 ||
+      _totalPrice == null ||
+      _totalPrice <= 0;
 
   Widget _buildAmountField() {
     return CupertinoTextField(
+      controller: _amountController,
       prefix: const Icon(
         CupertinoIcons.drop_fill,
         color: CupertinoColors.lightBackgroundGray,
@@ -36,13 +46,14 @@ class _RefuelMainState extends State<RefuelMain> {
       ),
       placeholder: "Menge",
       onChanged: (newAmount) {
-        setState(() => _amount = double.parse(newAmount));
+        setState(() => _amount = double.tryParse(newAmount));
       },
     );
   }
 
   Widget _buildTotalPriceField() {
     return CupertinoTextField(
+      controller: _priceController,
       prefix: const Icon(
         CupertinoIcons.money_euro,
         color: CupertinoColors.lightBackgroundGray,
@@ -62,7 +73,9 @@ class _RefuelMainState extends State<RefuelMain> {
       ),
       placeholder: "Preis",
       onChanged: (newPrice) {
-        setState(() => _totalPrice = double.parse(newPrice));
+        setState(() {
+          return _totalPrice = double.tryParse(newPrice);
+        });
       },
     );
   }
@@ -93,9 +106,9 @@ class _RefuelMainState extends State<RefuelMain> {
                   child: CupertinoSlidingSegmentedControl(
                     groupValue: _fuelType,
                     children: {
-                      FuelType.Diesel: Text("Diesel"),
+                      FuelType.Gazoline5: Text("Super E5"),
                       FuelType.Gazoline10: Text("Super E10"),
-                      FuelType.Gazoline5: Text("Super E5")
+                      FuelType.Diesel: Text("Diesel"),
                     },
                     onValueChanged: (fuelType) => setState(() {
                       _fuelType = fuelType;
@@ -109,13 +122,15 @@ class _RefuelMainState extends State<RefuelMain> {
                   width: double.maxFinite,
                   child: CupertinoButton.filled(
                     child: Text("Tanken"),
-                    onPressed: () {
-                      Refueling newRefueling =
-                          Refueling.capture(_amount, _totalPrice, _fuelType);
-                      Provider.of<AppStateModel>(context, listen: false)
-                          .registerRefueling(newRefueling);
-                      Navigator.pop(context);
-                    },
+                    onPressed: _isDisabled()
+                        ? null
+                        : () {
+                            Refueling newRefueling = Refueling.capture(
+                                _amount, _totalPrice, _fuelType);
+                            Provider.of<AppStateModel>(context, listen: false)
+                                .registerRefueling(newRefueling);
+                            Navigator.pop(context);
+                          },
                   ),
                 ),
               ),
