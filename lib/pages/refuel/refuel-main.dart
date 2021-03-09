@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/model/refueling.model.dart';
-import 'package:fueler/repositories/refuelings.repository.dart';
 import 'package:provider/provider.dart';
 
 class RefuelMain extends StatefulWidget {
@@ -14,8 +13,10 @@ class _RefuelMainState extends State<RefuelMain> {
   FuelType _fuelType = FuelType.Gazoline5;
   double _amount = 0;
   double _totalPrice = 0;
+  double _previouslyTraveledDistance;
   TextEditingController _amountController;
   TextEditingController _priceController;
+  TextEditingController _distanceController;
 
   bool _isDisabled() =>
       _fuelType == null ||
@@ -32,6 +33,7 @@ class _RefuelMainState extends State<RefuelMain> {
         color: CupertinoColors.lightBackgroundGray,
         size: 28,
       ),
+      textAlign: TextAlign.end,
       suffix: Text("Liter"),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
       clearButtonMode: OverlayVisibilityMode.editing,
@@ -56,14 +58,16 @@ class _RefuelMainState extends State<RefuelMain> {
     return CupertinoTextField(
       controller: _priceController,
       prefix: const Icon(
-        CupertinoIcons.money_euro,
+        CupertinoIcons.creditcard_fill,
         color: CupertinoColors.lightBackgroundGray,
         size: 28,
       ),
+      suffix: Text("Euro"),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
       clearButtonMode: OverlayVisibilityMode.editing,
       keyboardType: TextInputType.number,
       autocorrect: false,
+      textAlign: TextAlign.end,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -81,6 +85,38 @@ class _RefuelMainState extends State<RefuelMain> {
     );
   }
 
+  Widget _buildTraveledDistanceField() {
+    return CupertinoTextField(
+      controller: _distanceController,
+      prefix: const Icon(
+        CupertinoIcons.car_fill,
+        color: CupertinoColors.lightBackgroundGray,
+        size: 28,
+      ),
+      suffix: Text("Kilometer"),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+      clearButtonMode: OverlayVisibilityMode.editing,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.end,
+      autocorrect: false,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 0,
+            color: CupertinoColors.inactiveGray,
+          ),
+        ),
+      ),
+      placeholder: "Strecke mit letzter Tankfüllung",
+      onChanged: (previousDistance) {
+        setState(() {
+          return _previouslyTraveledDistance =
+              double.tryParse(previousDistance);
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -92,14 +128,6 @@ class _RefuelMainState extends State<RefuelMain> {
           ),
           Column(
             children: [
-              Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: _buildAmountField()),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: _buildTotalPriceField(),
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: SizedBox(
@@ -118,6 +146,18 @@ class _RefuelMainState extends State<RefuelMain> {
                 ),
               ),
               Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: _buildTraveledDistanceField()),
+              Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: _buildAmountField()),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: _buildTotalPriceField(),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: double.maxFinite,
@@ -129,7 +169,8 @@ class _RefuelMainState extends State<RefuelMain> {
                             Refueling newRefueling = Refueling.capture(
                                 _amount, _totalPrice, _fuelType);
                             Provider.of<AppStateModel>(context, listen: false)
-                                .registerRefueling(newRefueling, null);
+                                .registerRefueling(
+                                    newRefueling, _previouslyTraveledDistance);
 
                             Navigator.pop(context);
                           },
