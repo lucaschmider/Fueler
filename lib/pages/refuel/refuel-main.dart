@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/model/refueling.model.dart';
+import 'package:fueler/repositories/refuelings.repository.dart';
 import 'package:provider/provider.dart';
 
 class RefuelMain extends StatefulWidget {
@@ -124,11 +125,12 @@ class _RefuelMainState extends State<RefuelMain> {
                     child: Text("Tanken"),
                     onPressed: _isDisabled()
                         ? null
-                        : () {
+                        : () async {
                             Refueling newRefueling = Refueling.capture(
                                 _amount, _totalPrice, _fuelType);
                             Provider.of<AppStateModel>(context, listen: false)
                                 .registerRefueling(newRefueling);
+
                             Navigator.pop(context);
                           },
                   ),

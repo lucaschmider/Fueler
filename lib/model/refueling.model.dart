@@ -33,7 +33,18 @@ class Refueling {
   /// The day the refueling has occured
   final DateTime timestamp;
 
+  /// The type of fuel
   final FuelType fuelType;
+
+  Map<String, dynamic> toMap() {
+    return {
+      "refuelingId": refuelingId,
+      "amount": amount,
+      "price": price,
+      "timestamp": timestamp.toString(),
+      "fuelType": fuelType.index
+    };
+  }
 }
 
 enum FuelType { Gazoline5, Gazoline10, Diesel }

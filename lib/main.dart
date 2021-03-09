@@ -9,8 +9,9 @@ import 'app.dart';
 void main() {
   initializeDateFormatting("de", null);
   initializeDateFormatting("de_DE", null);
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ChangeNotifierProvider(
-    create: (_) => AppStateModel(),
+    create: (_) => AppStateModel()..initializeAsync(),
     child: FuelerApp(),
   ));
 }
