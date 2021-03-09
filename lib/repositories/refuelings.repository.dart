@@ -26,6 +26,13 @@ class RefuelingsRepository {
     var database = await databaseService.getDatabaseAsync();
     await database.insert(_refuelingsTable, refueling.toMap());
   }
+
+  Future<void> addDistanceToRefueling(
+      String refuelingId, double distance) async {
+    var database = await databaseService.getDatabaseAsync();
+    await database.update(_refuelingsTable, {"distance": distance},
+        where: "refuelingId = ?", whereArgs: [refuelingId]);
+  }
 }
 
 RefuelingsRepository refuelingsRepository = RefuelingsRepository();

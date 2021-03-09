@@ -13,7 +13,7 @@ class Refueling {
         assert(amount > 0),
         assert(price > 0),
         assert(fuelType != null),
-        assert(distance > 0),
+        assert(distance == null || distance > 0),
         assert(timestamp != null);
 
   Refueling.capture(this.amount, this.price, this.fuelType)

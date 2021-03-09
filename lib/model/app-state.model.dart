@@ -3,22 +3,44 @@ import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/repositories/refuelings.repository.dart';
 
 class AppStateModel extends foundation.ChangeNotifier {
-  List<Refueling> _refuelings = List();
+  Map<String, Refueling> _refuelings = Map<String, Refueling>();
 
-  List<Refueling> getAllRefuelings() => _refuelings.sublist(0);
-  Future<void> registerRefueling(Refueling refueling) async {
+  List<Refueling> getAllRefuelings() {
+    var refuelings = _refuelings.values.toList();
+    refuelings.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return refuelings;
+  }
+
+  Future<void> registerRefueling(
+      Refueling refueling, double previouslyTraveledDistance) async {
+    if (previouslyTraveledDistance != null) {
+      var lastRefuelingId = _refuelings.values
+          .where((element) => element.fuelType == refueling.fuelType)
+          .reduce((accumulator, element) =>
+              accumulator.timestamp.compareTo(element.timestamp) < 0
+                  ? element
+                  : accumulator)
+          .refuelingId;
+
+      await refuelingsRepository.addDistanceToRefueling(
+          lastRefuelingId, previouslyTraveledDistance);
+
+      _refuelings.update(lastRefuelingId, (value) {
+        value.distance = previouslyTraveledDistance;
+        return value;
+      });
+    }
+
     await refuelingsRepository.saveRefuelingAsync(refueling);
+    _refuelings.putIfAbsent(refueling.refuelingId, () => refueling);
 
-    _refuelings.add(refueling);
-    _refuelings.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     notifyListeners();
   }
 
   Future<void> initializeAsync() async {
     var refuelings = await refuelingsRepository.getAllRefuelingsAsync();
-
-    refuelings.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    _refuelings = refuelings;
+    _refuelings.clear();
+    _refuelings.addEntries(refuelings.map((e) => MapEntry(e.refuelingId, e)));
     notifyListeners();
   }
 }

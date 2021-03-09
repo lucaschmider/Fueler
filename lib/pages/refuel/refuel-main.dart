@@ -129,7 +129,7 @@ class _RefuelMainState extends State<RefuelMain> {
                             Refueling newRefueling = Refueling.capture(
                                 _amount, _totalPrice, _fuelType);
                             Provider.of<AppStateModel>(context, listen: false)
-                                .registerRefueling(newRefueling);
+                                .registerRefueling(newRefueling, null);
 
                             Navigator.pop(context);
                           },
