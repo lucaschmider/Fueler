@@ -32,41 +32,8 @@ class _FuelerAppState extends State<FuelerApp> {
 class FuelerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
-              label: "Übersicht",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.gear),
-              label: "Einstellungen",
-            ),
-          ],
-        ),
-        tabBuilder: (context, index) {
-          CupertinoTabView returnValue;
-          switch (index) {
-            case 0:
-              returnValue = CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: DashboardPage(),
-                );
-              });
-              break;
-            case 1:
-              returnValue = CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text("Hallo, Welt"),
-                  ),
-                );
-              });
-              break;
-          }
-          return returnValue;
-        });
+    return CupertinoPageScaffold(
+      child: DashboardPage(),
+    );
   }
 }
