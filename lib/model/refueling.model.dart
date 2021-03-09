@@ -7,11 +7,13 @@ class Refueling {
       @required this.amount,
       @required this.price,
       @required this.fuelType,
-      @required this.timestamp})
+      @required this.timestamp,
+      @required this.distance})
       : assert(refuelingId != null),
         assert(amount > 0),
         assert(price > 0),
         assert(fuelType != null),
+        assert(distance > 0),
         assert(timestamp != null);
 
   Refueling.capture(this.amount, this.price, this.fuelType)
@@ -30,6 +32,9 @@ class Refueling {
   /// The total price in the users currency
   final double price;
 
+  /// The distance traveld with this refueling (in kilometers)
+  double distance;
+
   /// The day the refueling has occured
   final DateTime timestamp;
 
@@ -42,7 +47,8 @@ class Refueling {
       "amount": amount,
       "price": price,
       "timestamp": timestamp.toString(),
-      "fuelType": fuelType.index
+      "fuelType": fuelType.index,
+      "distance": distance
     };
   }
 }

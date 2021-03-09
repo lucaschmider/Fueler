@@ -10,21 +10,28 @@ class DatabaseService {
     price REAL NOT NULL,
     timestamp VARCHAR(255) NOT NULL,
     fuelType INTEGER NOT NULL
-) WITHOUT ROWID;"""
+) WITHOUT ROWID;""",
+    "Add distance column": """ALTER TABLE refuelings ADD COLUMN distance REAL"""
   };
+
+  Future<void> _runMigrations(
+      Database db, Iterable<MapEntry<String, String>> migrations) async {
+    for (var migration in migrations) {
+      print("Running migration ${migration.key}...");
+      await db.execute(migration.value);
+      print("Done.");
+    }
+  }
 
   Future<Database> getDatabaseAsync() async {
     if (_database == null) {
       _database = await openDatabase(
         join(await getDatabasesPath(), "fueler.db"),
-        onCreate: (db, version) async {
-          for (var migration in _migrations.entries) {
-            print("Running migration ${migration.key}...");
-            await db.execute(migration.value);
-            print("Done.");
-          }
-        },
-        version: 1,
+        onCreate: (db, version) async =>
+            await _runMigrations(db, _migrations.entries),
+        onUpgrade: (db, oldVersion, newVersion) async =>
+            await _runMigrations(db, _migrations.entries.skip(newVersion - 1)),
+        version: 2,
       );
     }
     return _database;

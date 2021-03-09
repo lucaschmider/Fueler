@@ -14,6 +14,7 @@ class RefuelingsRepository {
           refuelingId: r["refuelingId"],
           amount: r["amount"],
           price: r["price"],
+          distance: r["distance"],
           fuelType: fuelType,
           timestamp: timestamp);
     });
