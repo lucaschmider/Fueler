@@ -59,7 +59,7 @@ class _RefuelMainState extends State<RefuelMain> {
                       keyboardType: TextInputType.numberWithOptions(
                           decimal: true, signed: false),
                       onChanged: (value) => setState(() {
-                        _amount = double.tryParse(value);
+                        _amount = double.tryParse(value.replaceAll(",", "."));
                       }),
                       textAlign: TextAlign.end,
                     ),
@@ -68,7 +68,8 @@ class _RefuelMainState extends State<RefuelMain> {
                       keyboardType: TextInputType.numberWithOptions(
                           decimal: true, signed: false),
                       onChanged: (value) => setState(() {
-                        _totalPrice = double.tryParse(value);
+                        _totalPrice =
+                            double.tryParse(value.replaceAll(",", "."));
                       }),
                       textAlign: TextAlign.end,
                     ),
