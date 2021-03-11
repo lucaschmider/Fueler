@@ -27,8 +27,8 @@ dependencies:
     sdk: flutter
   intl: ^0.16.1 
   modal_bottom_sheet: ^1.0.0+1
-  sqflite:
-  path:
+  sqflite: any
+  path: any
 
 
   # The following adds the Cupertino Icons font to your application.
