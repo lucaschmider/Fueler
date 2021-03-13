@@ -3,7 +3,7 @@ import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/repositories/refuelings.repository.dart';
 
 class AppStateModel extends foundation.ChangeNotifier {
-  List<Refueling> _refuelings = List();
+  List<Refueling> _refuelings = [];
 
   List<Refueling> getAllRefuelings() => _refuelings.sublist(0);
   Future<void> registerRefueling(Refueling refueling) async {
@@ -19,6 +19,12 @@ class AppStateModel extends foundation.ChangeNotifier {
 
     refuelings.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     _refuelings = refuelings;
+    notifyListeners();
+  }
+
+  Future<void> deleteRefueling(String refuelingId) async {
+    await refuelingsRepository.removeRefuelingAsync(refuelingId);
+    _refuelings.removeWhere((element) => element.refuelingId == refuelingId);
     notifyListeners();
   }
 }

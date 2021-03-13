@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/pages/dashboard/fuel-type-icon.dart';
+import 'package:fueler/repositories/refuelings.repository.dart';
 import 'package:fueler/services/text.service.dart';
 import 'package:fueler/styles.dart';
+import 'package:provider/provider.dart';
 
 class RefuelingItem extends StatefulWidget {
   final Refueling item;
@@ -17,8 +21,7 @@ class RefuelingItem extends StatefulWidget {
 }
 
 class _RefuelingItemState extends State<RefuelingItem> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildItem() {
     final row = SafeArea(
       top: false,
       bottom: false,
@@ -69,5 +72,35 @@ class _RefuelingItemState extends State<RefuelingItem> {
         ),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+        onDismissed: (direction) =>
+            Provider.of<AppStateModel>(context, listen: false)
+                .deleteRefueling(widget.item.refuelingId),
+        direction: DismissDirection.endToStart,
+        background: Container(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Icon(
+                  CupertinoIcons.trash_fill,
+                  color: CupertinoColors.white,
+                ),
+                Text(
+                  "Löschen",
+                  style: TextStyle(color: CupertinoColors.white),
+                ),
+              ],
+            ),
+          ),
+          color: CupertinoColors.destructiveRed,
+        ),
+        key: Key(widget.item.refuelingId),
+        child: _buildItem());
   }
 }

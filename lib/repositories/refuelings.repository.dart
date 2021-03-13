@@ -25,6 +25,15 @@ class RefuelingsRepository {
     var database = await databaseService.getDatabaseAsync();
     await database.insert(_refuelingsTable, refueling.toMap());
   }
+
+  Future<void> removeRefuelingAsync(String refuelingId) async {
+    var database = await databaseService.getDatabaseAsync();
+    await database.delete(
+      _refuelingsTable,
+      where: "refuelingId = ?",
+      whereArgs: [refuelingId],
+    );
+  }
 }
 
 RefuelingsRepository refuelingsRepository = RefuelingsRepository();
