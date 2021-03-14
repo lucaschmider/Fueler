@@ -85,7 +85,10 @@ class _RefuelingItemState extends State<RefuelingItem> {
     return Dismissible(
         onDismissed: (_) => Provider.of<AppStateModel>(context, listen: false)
             .deleteRefueling(widget.item.refuelingId),
-        confirmDismiss: (_) => HapticFeedback.mediumImpact(),
+        confirmDismiss: (_) {
+          HapticFeedback.mediumImpact();
+          return Future.value(true);
+        },
         direction: DismissDirection.endToStart,
         background: Container(
           alignment: Alignment.centerRight,
