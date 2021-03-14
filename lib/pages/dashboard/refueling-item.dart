@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/model/refueling.model.dart';
@@ -77,9 +78,11 @@ class _RefuelingItemState extends State<RefuelingItem> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        onDismissed: (direction) =>
-            Provider.of<AppStateModel>(context, listen: false)
-                .deleteRefueling(widget.item.refuelingId),
+        onDismissed: (direction) {
+          Provider.of<AppStateModel>(context, listen: false)
+              .deleteRefueling(widget.item.refuelingId);
+          HapticFeedback.mediumImpact();
+        },
         direction: DismissDirection.endToStart,
         background: Container(
           alignment: Alignment.centerRight,
