@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
 import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/pages/dashboard/fuel-type-icon.dart';
-import 'package:fueler/repositories/refuelings.repository.dart';
 import 'package:fueler/services/text.service.dart';
 import 'package:fueler/styles.dart';
 import 'package:provider/provider.dart';
@@ -71,9 +70,11 @@ class _RefuelingItemState extends State<RefuelingItem> {
       children: <Widget>[
         row,
         Container(
-          height: 1,
-          color: Styles.listItemDivider,
-          margin: EdgeInsets.only(left: 8, right: 8),
+          height: 0.4,
+          color: CupertinoTheme.brightnessOf(context) == Brightness.dark
+              ? CupertinoColors.secondarySystemGroupedBackground
+              : CupertinoColors.black,
+          margin: EdgeInsets.only(left: 16, right: 16),
         ),
       ],
     );

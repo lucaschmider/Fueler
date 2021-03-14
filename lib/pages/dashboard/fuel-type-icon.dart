@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/refueling.model.dart';
@@ -15,19 +16,22 @@ class FuelTypeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        child: Text(
-          this._texts[this.type] ?? "",
-          style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.w300, color: Colors.white),
-        ),
-        height: 40,
-        width: 76,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: CupertinoTheme.brightnessOf(context) == Brightness.dark
+            ? Border.all(color: CupertinoColors.opaqueSeparator, width: 1.25)
+            : null,
         color: Styles.fuelColors[this.type],
-        alignment: Alignment.center,
       ),
+      child: Text(
+        this._texts[this.type] ?? "",
+        style: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.w300, color: Colors.white),
+      ),
+      height: 40,
+      width: 76,
+      alignment: Alignment.center,
     );
   }
 }
