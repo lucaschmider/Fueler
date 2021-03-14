@@ -45,7 +45,11 @@ class _RefuelingItemState extends State<RefuelingItem> {
                   Text(
                     textService.getRefuelingTitleLine(
                         widget.item.amount, widget.item.price),
-                    style: Styles.dashboardRowTitle,
+                    style: Styles.dashboardRowTitle.copyWith(
+                        color: CupertinoTheme.of(context)
+                            .textTheme
+                            .textStyle
+                            .color),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Text(
@@ -78,11 +82,9 @@ class _RefuelingItemState extends State<RefuelingItem> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        onDismissed: (direction) {
-          Provider.of<AppStateModel>(context, listen: false)
-              .deleteRefueling(widget.item.refuelingId);
-          HapticFeedback.mediumImpact();
-        },
+        onDismissed: (_) => Provider.of<AppStateModel>(context, listen: false)
+            .deleteRefueling(widget.item.refuelingId),
+        confirmDismiss: (_) => HapticFeedback.mediumImpact(),
         direction: DismissDirection.endToStart,
         background: Container(
           alignment: Alignment.centerRight,
