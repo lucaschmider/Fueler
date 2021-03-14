@@ -17,7 +17,7 @@ class _FuelerAppState extends State<FuelerApp> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
+      theme: const CupertinoThemeData(),
       home: FuelerHome(),
     );
   }

@@ -27,6 +27,12 @@ class _RefuelMainState extends State<RefuelMain> {
 
   @override
   Widget build(BuildContext context) {
+    final currentTheme = CupertinoTheme.of(context);
+    final currentBrightness = CupertinoTheme.brightnessOf(context);
+    final pageBackground = currentBrightness == Brightness.dark
+        ? CupertinoColors.black
+        : CupertinoColors.systemGroupedBackground;
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
@@ -35,16 +41,25 @@ class _RefuelMainState extends State<RefuelMain> {
       resizeToAvoidBottomInset: false,
       child: SafeArea(
         child: Container(
-          color: CupertinoColors.systemGroupedBackground,
+          color: pageBackground,
           child: Form(
             child: Column(
               children: [
                 CupertinoFormRowOptions(
                   header: Text("Kraftstoff"),
                   values: {
-                    FuelType.Gazoline5: Text("Super E5"),
-                    FuelType.Gazoline10: Text("Super E10"),
-                    FuelType.Diesel: Text("Diesel"),
+                    FuelType.Gazoline5: Text(
+                      "Super E5",
+                      style: currentTheme.textTheme.textStyle,
+                    ),
+                    FuelType.Gazoline10: Text(
+                      "Super E10",
+                      style: currentTheme.textTheme.textStyle,
+                    ),
+                    FuelType.Diesel: Text(
+                      "Diesel",
+                      style: currentTheme.textTheme.textStyle,
+                    ),
                   },
                   onChanged: (type) => setState(() {
                     _fuelType = type;
@@ -80,7 +95,9 @@ class _RefuelMainState extends State<RefuelMain> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: CupertinoButton.filled(
-                      child: Text("Tanken"),
+                      child: Text(
+                        "Tanken",
+                      ),
                       onPressed: _isDisabled()
                           ? null
                           : () async {
