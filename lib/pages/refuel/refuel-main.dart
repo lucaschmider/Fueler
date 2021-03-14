@@ -7,6 +7,8 @@ import 'package:fueler/model/refueling.model.dart';
 import 'package:fueler/repositories/refuelings.repository.dart';
 import 'package:provider/provider.dart';
 
+import 'cupertino-form-row-options.dart';
+
 class RefuelMain extends StatefulWidget {
   @override
   _RefuelMainState createState() => _RefuelMainState();
@@ -37,23 +39,21 @@ class _RefuelMainState extends State<RefuelMain> {
           child: Form(
             child: Column(
               children: [
+                CupertinoFormRowOptions(
+                  header: Text("Kraftstoff"),
+                  values: {
+                    FuelType.Gazoline5: Text("Super E5"),
+                    FuelType.Gazoline10: Text("Super E10"),
+                    FuelType.Diesel: Text("Diesel"),
+                  },
+                  onChanged: (type) => setState(() {
+                    _fuelType = type;
+                  }),
+                  defaultValue: FuelType.Gazoline5,
+                ),
                 CupertinoFormSection(
                   header: Text("Allgemeine Informationen"),
                   children: [
-                    CupertinoFormRow(
-                      prefix: Text("Kraftstoff"),
-                      child: CupertinoSlidingSegmentedControl(
-                        groupValue: _fuelType,
-                        children: {
-                          FuelType.Gazoline5: Text("Super E5"),
-                          FuelType.Gazoline10: Text("Super E10"),
-                          FuelType.Diesel: Text("Diesel"),
-                        },
-                        onValueChanged: (fuelType) => setState(() {
-                          _fuelType = fuelType;
-                        }),
-                      ),
-                    ),
                     CupertinoTextFormFieldRow(
                       prefix: Text("Menge"),
                       keyboardType: TextInputType.numberWithOptions(
