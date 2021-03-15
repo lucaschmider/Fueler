@@ -6,6 +6,7 @@ class NavigationService {
   void openRefuelingDialog(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
+      expand: true,
       builder: (context) => CupertinoPageScaffold(
         child: RefuelMain(),
       ),

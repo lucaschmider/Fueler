@@ -7,12 +7,15 @@ class Refueling {
       @required this.amount,
       @required this.price,
       @required this.fuelType,
-      @required this.timestamp})
+      @required this.timestamp,
+      double traveledDistance})
       : assert(refuelingId != null),
         assert(amount > 0),
         assert(price > 0),
         assert(fuelType != null),
-        assert(timestamp != null);
+        assert(timestamp != null) {
+    _traveledDistance = traveledDistance;
+  }
 
   Refueling.capture(this.amount, this.price, this.fuelType)
       : assert(amount > 0),
@@ -36,15 +39,33 @@ class Refueling {
   /// The type of fuel
   final FuelType fuelType;
 
+  /// The distance traveld with this refueling
+  double _traveledDistance;
+  double get traveledDistance => _traveledDistance;
+
+  /// Completes the refueling by setting remaining information
+  void complete(double traveledDistance) {
+    if (isCompleted) {
+      throw new RefuelingChangedAfterItWasCompletedError();
+    }
+
+    _traveledDistance = traveledDistance;
+  }
+
+  bool get isCompleted => _traveledDistance != null;
+
   Map<String, dynamic> toMap() {
     return {
       "refuelingId": refuelingId,
       "amount": amount,
       "price": price,
       "timestamp": timestamp.toString(),
-      "fuelType": fuelType.index
+      "fuelType": fuelType.index,
+      "traveledDistance": _traveledDistance
     };
   }
 }
 
 enum FuelType { Gazoline5, Gazoline10, Diesel }
+
+class RefuelingChangedAfterItWasCompletedError extends Error {}

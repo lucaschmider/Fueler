@@ -53,7 +53,7 @@ class _RefuelingItemState extends State<RefuelingItem> {
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Text(
                     textService.getRefuelingSubtitle(widget.item.timestamp,
-                        widget.item.amount, widget.item.price),
+                        widget.item.traveledDistance, widget.item.price),
                     style: Styles.dashboardRowSubtitle,
                   )
                 ],

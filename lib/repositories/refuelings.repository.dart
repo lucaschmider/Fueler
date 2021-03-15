@@ -15,7 +15,8 @@ class RefuelingsRepository {
           amount: r["amount"],
           price: r["price"],
           fuelType: fuelType,
-          timestamp: timestamp);
+          timestamp: timestamp,
+          traveledDistance: r["traveledDistance"]);
     });
 
     return refuelings.toList();
@@ -24,6 +25,16 @@ class RefuelingsRepository {
   Future<void> saveRefuelingAsync(Refueling refueling) async {
     var database = await databaseService.getDatabaseAsync();
     await database.insert(_refuelingsTable, refueling.toMap());
+  }
+
+  Future<void> updateRefuelingAsync(Refueling refueling) async {
+    var database = await databaseService.getDatabaseAsync();
+    await database.update(
+      _refuelingsTable,
+      refueling.toMap(),
+      where: "refuelingId = ?",
+      whereArgs: [refueling.refuelingId],
+    );
   }
 
   Future<void> removeRefuelingAsync(String refuelingId) async {
