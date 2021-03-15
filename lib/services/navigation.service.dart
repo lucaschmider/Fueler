@@ -7,9 +7,7 @@ class NavigationService {
     showCupertinoModalBottomSheet(
       context: context,
       expand: true,
-      builder: (context) => CupertinoPageScaffold(
-        child: RefuelMain(),
-      ),
+      builder: (context) => RefuelMain(),
     );
   }
 }

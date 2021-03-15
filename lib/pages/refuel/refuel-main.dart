@@ -34,6 +34,7 @@ class _RefuelMainState extends State<RefuelMain> {
         : CupertinoColors.systemGroupedBackground;
 
     return CupertinoPageScaffold(
+      backgroundColor: pageBackground,
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
         middle: Text("Nachtanken"),
