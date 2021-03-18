@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fueler/model/app-state.model.dart';
-import 'package:fueler/model/refueling.model.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
