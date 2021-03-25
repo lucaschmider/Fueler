@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fueler/model/app-state.model.dart';
@@ -17,7 +18,6 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppStateModel>(
       builder: (context, model, child) {
-        final theme = CupertinoTheme.of(context);
         final refuelings = model.getAllRefuelings();
         final historyItems = createHistoryItems(refuelings);
         final items = [
@@ -31,13 +31,22 @@ class DashboardPage extends StatelessWidget {
               ),
               color: CupertinoTheme.of(context).barBackgroundColor,
               elevation: 14,
-              child: Column(
-                children: [
-                  _buildSummary(context, FuelType.Gazoline5, RowPosition.First),
-                  _buildSummary(
-                      context, FuelType.Gazoline10, RowPosition.Intermediate),
-                  _buildSummary(context, FuelType.Diesel, RowPosition.Last),
-                ],
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: Column(
+                  children: [
+                    SummaryRow(
+                      fuelType: FuelType.Gazoline5,
+                    ),
+                    SummaryRow(
+                      fuelType: FuelType.Gazoline10,
+                    ),
+                    SummaryRow(
+                      fuelType: FuelType.Diesel,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -65,17 +74,43 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Padding _buildSummary(
-      BuildContext context, FuelType type, RowPosition position) {
+  List<Widget> createHistoryItems(List<Refueling> refuelings) {
+    return groupBy<Refueling, DateTime>(
+            refuelings, (r) => DateTime(r.timestamp.year, r.timestamp.month))
+        .entries
+        .fold<List<Widget>>(<Widget>[], (accumulator, element) {
+      accumulator.add(
+        RefuelingGroupHeader(
+          commonTimestamp: element.key,
+          childCount: element.value.length,
+        ),
+      );
+      accumulator.addAll(element.value.mapIndexed((index, e) => RefuelingItem(
+            item: e,
+            isLastItem: index == element.value.length - 1,
+          )));
+      return accumulator;
+    });
+  }
+}
+
+class SummaryRow extends StatelessWidget {
+  final FuelType fuelType;
+
+  const SummaryRow({
+    Key key,
+    this.fuelType,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: position == RowPosition.Last ? 24 : 8,
-          left: 24,
-          right: 24,
-          top: position == RowPosition.First ? 24 : 8),
+      padding: EdgeInsets.symmetric(
+        vertical: 8,
+      ),
       child: Row(
         children: [
-          FuelTypeIcon(type: type),
+          FuelTypeIcon(type: fuelType),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -100,24 +135,6 @@ class DashboardPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  List<Widget> createHistoryItems(List<Refueling> refuelings) {
-    return groupBy<Refueling, DateTime>(
-            refuelings, (r) => DateTime(r.timestamp.year, r.timestamp.month))
-        .entries
-        .fold<List<Widget>>(<Widget>[], (accumulator, element) {
-      accumulator.add(
-        RefuelingGroupHeader(
-          commonTimestamp: element.key,
-        ),
-      );
-      accumulator.addAll(element.value.mapIndexed((index, e) => RefuelingItem(
-            item: e,
-            isLastItem: index == element.value.length - 1,
-          )));
-      return accumulator;
-    });
   }
 }
 
