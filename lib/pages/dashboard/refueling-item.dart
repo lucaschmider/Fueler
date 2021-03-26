@@ -29,7 +29,7 @@ class _RefuelingItemState extends State<RefuelingItem> {
         left: 16,
         top: 8,
         bottom: 8,
-        right: 8,
+        right: 16,
       ),
       child: Row(
         children: [

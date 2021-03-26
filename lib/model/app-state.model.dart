@@ -46,4 +46,8 @@ class AppStateModel extends foundation.ChangeNotifier {
     _refuelings.remove(refuelingId);
     notifyListeners();
   }
+
+  bool hasAnyIncompleteRefuelingsOfType(FuelType type) =>
+      _refuelings.values.any((element) =>
+          element.fuelType == type && element.traveledDistance == null);
 }
