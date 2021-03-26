@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 class CupertinoFormRowOptions<TValue> extends StatefulWidget {
   final Widget header;
   final Map<TValue, Widget> values;
-  final Function(TValue) onChanged;
+  final void Function(TValue) onChanged;
   final TValue defaultValue;
 
   const CupertinoFormRowOptions(
@@ -12,12 +12,12 @@ class CupertinoFormRowOptions<TValue> extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
+  State<CupertinoFormRowOptions<TValue>> createState() =>
       _CupertinoFormRowOptionsState<TValue>(defaultValue);
 }
 
 class _CupertinoFormRowOptionsState<TValue>
-    extends State<CupertinoFormRowOptions> {
+    extends State<CupertinoFormRowOptions<TValue>> {
   TValue _currentValue;
 
   _CupertinoFormRowOptionsState(TValue defaultValue) {
